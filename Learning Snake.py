@@ -4,8 +4,10 @@ import neat
 import os
 import math
 import pickle
+import neatlib.visualize as visualize
 
 pygame.init()
+# os.environ["PATH"] += os.pathsep + '/usr/bin/'
 
 white = (255, 255, 255)
 yellow = (255, 255, 102)
@@ -360,6 +362,8 @@ def main(genomes, config):
             # print(output)
             dir = output.index(max(output))
             snake.move(dir)
+            # if gen == 0 or gen % 5 == 0:
+            #     visualize.draw_net(config, ge[x], False, str(gen) + " net")
             if snake.length in top3:
                 if snake.length == max(top3):
                     snake.draw(pygame.Color("red"))
@@ -420,6 +424,9 @@ def run(config_path):
     winner = p.run(main, 20)
     with open("bestmodel.pickle", "wb") as f:
         pickle.dump(winner, f)
+    # visualize.draw_net(config, winner, False, "winner net")
+    # visualize.plot_species(stats)
+    # visualize.plot_stats(stats)
 
 
 if __name__ == "__main__":
